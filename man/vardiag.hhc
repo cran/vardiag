@@ -1,0 +1,46 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HTML>
+<HEAD>
+<meta name="GENERATOR" content="Microsoft&reg; HTML Help Workshop 4.1">
+<!-- Sitemap 1.0 -->
+</HEAD><BODY>
+<OBJECT type="text/site properties">
+	<param name="Auto Generated" value="Yes">
+</OBJECT>
+<UL>
+	<LI> <OBJECT type="text/sitemap">
+		<param name="Name" value="Variogram diagnostics">
+		<param name="Local" value="00Index.html">
+		</OBJECT>
+	<UL>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Plot of Cook's Distances and Reduction Lack of Fit">
+			<param name="Local" value="CookRLF.varobj.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Interactive Identification of Points in a Variogram Diagnostics Plot">
+			<param name="Local" value="interact.varobj.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Diagnostic Plots for Variograms">
+			<param name="Local" value="PlotDiag.varobj.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="QQ-Plot of Decorrelated Residuals">
+			<param name="Local" value="QQDecorr.varobj.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="QQ-Plot of Variogram Cloud Entries">
+			<param name="Local" value="QQVarcloud.varobj.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Data on Chlorid concentrations in the S&amp;uuml;dliche Tullnerfeld">
+			<param name="Local" value="tulln.html">
+			</OBJECT>
+		<LI> <OBJECT type="text/sitemap">
+			<param name="Name" value="Function for variogram fitting">
+			<param name="Local" value="varobj.html">
+			</OBJECT>
+	</UL>
+</UL>
+</BODY></HTML>
