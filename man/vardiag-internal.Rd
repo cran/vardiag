@@ -5,6 +5,7 @@
 \alias{ftg}
 \alias{fth}
 \alias{fts}
+\alias{ftsOpt}
 \alias{gamsph}
 \alias{gamsph1}
 \alias{gamsph2}
@@ -30,7 +31,7 @@ gamsph1(h, th = rbind(1, 1, 1))
 gamsph2(h, th = rbind(1, 1, 1))
 gamsph3(h, th = rbind(1, 1, 1))
 hyperg(r)
-print.varobj(x, ...)
+\method{print}{varobj}(x, ...)
 }
 
 \arguments{
@@ -56,4 +57,4 @@ These functions are not intended to be called by the user.
 
 \author{Ernst Glatzer}
 
-\keyword{misc}
+\keyword{internal}

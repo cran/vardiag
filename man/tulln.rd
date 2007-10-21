@@ -2,9 +2,7 @@
 \alias{tulln}
 \alias{tu1}
 \alias{vs50}
-\non_function{}
-
-\title{Data on Chlorid concentrations in the Südliche Tullnerfeld}
+\title{Data on Chlorid concentrations in the Suedliche Tullnerfeld}
 
 \description{
 The \code{tulln} dataset contains a variogram object and a matrix

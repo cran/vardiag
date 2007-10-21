@@ -6,7 +6,14 @@ ftc<-function(th,y,h1,w1){(y-gamsph(h1,th))/gamsph(h1,th)}
 
 ftg<-function(th,y,h1,cv1){cv1%*%(y-gamsph(h1,th))}
 
-fts<-function(th,y,h1,cv1){cv1%*%(y-(2^0.25*gamma(0.75)/sqrt(pi))*gamsph(h1,th)^0.25)}
+fts <- function(th, y, h1, cv1) {
+	cv1 %*% (y-(2^0.25*gamma(0.75)/sqrt(pi))*gamsph(h1,th)^0.25)
+}
+
+ftsOpt <- function(th, y, h1, cv1) {
+	ret = cv1 %*% (y-(2^0.25*gamma(0.75)/sqrt(pi))*gamsph(h1,th)^0.25)
+	mean(ret^2)
+}
 
 gamsph1<-function(h,th=rbind(1,1,1)){1}
 
@@ -31,66 +38,79 @@ f}
 
 ficorr<-function(r){gamma(0.75)^2/(sqrt(pi)-gamma(0.75)^2)*((1-r^2)*hyperg(r^2)-1)}
 
-estvar<-function(h0,y,iter=50,tolerance=0.0002,trace=1,th0=rbind(0,1,1)){
-n<-ceiling(sqrt(2*length(h0)))
-
-#Vorbereitung für covgamma
-n1<-n*(n-1)/2
-#1. index der gamma[i,j] matrix
-i1<-matrix(1:n,n,n)
-#1. teil des zeilenindex der covgamma gamma matrix
-k1<-matrix(i1[row(i1)<col(i1)],n1,n1)
-#2. teil des zeilenindex der covgamma gamma matrix
-k2<-matrix(t(i1)[row(i1)<col(i1)],n1,n1)
-#1. teil des spaltenindex der covgamma gamma matrix
-k3<-t(k1)
-#2. teil des spaltenindex der covgamma gamma matrix
-k4<-t(k2)
-
-if(!missing(th0)){
-	opt<-nlregb(n*(n-1)/2,cbind(0,max(y/2),max(h0)),fts,y=y^0.25,h1=h0,cv1=diag(n1),lower=cbind(0,0,0))
-	th1<-opt$parameters
-}
-else
-	th1<-th0
-th1<-cbind(0,max(y/2),max(h0))
-#th0<-th1_c(3.72635248595876, 15.5844183738953, 1.22109233789852)
-#th1<-c(0.0000000,7.6516077,0.7808538)
-for (i in 1:iter)
+estvar <- function(h0, y, iter=50, tolerance=0.0002, trace=1, th0=rbind(0,1,1)) 
 	{
-	if(trace>0) print(i)
-	gg<-sqrt(2*gamsph(h0,th1))
-	#Spalte 1, Spalte 2, ...
-	#gamma vektor wird als matrix dargestellt
-	tt<-matrix(gg[(t(i1)-2)*(t(i1)-1)/2+i1],n,n)
-	#symmetrisierung
-	tt1<-tt
-	tt1[row(tt1)>col(tt1)]<-t(tt)[row(tt1)>col(tt1)]
-	#diagonale löschen
-	tt1[row(tt1)==col(tt1)]<-0
-	#covgamma wird berechnet
-	cg<-matrix(tt1[(k4-1)*n+k1]+tt1[(k2-1)*n+k3]-tt1[(k3-1)*n+k1]-tt1[(k4-1)*n+k2],n1,n1)
-	cgcg<-outer(gg,gg,"*")
-	corg<-sqrt(cgcg)*ficorr((cg*lower.tri(cg))/cgcg)
-	corg<-sqrt(2)*(sqrt(pi)-gamma(0.75)^2)/pi*(corg+t(corg)+diag(gg))
-	infm<-solve(corg);
-	cv<-chol((infm+t(infm))/2);
-	#sc<-cbind(1/th1[2],1/th1[2],1/th1[3])
-	opt<-nlregb(n*(n-1)/2,th1,fts,y=y^0.25,h1=h0,cv1=cv,lower=cbind(0,0,0))
-	if(trace>0) print(opt$parameters)
-	if(sum(abs((th1-opt$parameters)/(th1+0.00001)))<=tolerance)
-		{break}
-	th1<-opt$parameters
+
+	#EJP added:
+	#stop("this function requires nlregb (an S-Plus proprietary function) to work")
+	
+	n<-ceiling(sqrt(2*length(h0)))
+	
+	#Vorbereitung für covgamma
+	n1<-n*(n-1)/2
+	#1. index der gamma[i,j] matrix
+	i1<-matrix(1:n,n,n)
+	#1. teil des zeilenindex der covgamma gamma matrix
+	k1<-matrix(i1[row(i1)<col(i1)],n1,n1)
+	#2. teil des zeilenindex der covgamma gamma matrix
+	k2<-matrix(t(i1)[row(i1)<col(i1)],n1,n1)
+	#1. teil des spaltenindex der covgamma gamma matrix
+	k3<-t(k1)
+	#2. teil des spaltenindex der covgamma gamma matrix
+	k4<-t(k2)
+	
+	if(!missing(th0)) {
+		#EJP outcommented:
+		#opt<-nlregb(n*(n-1)/2,cbind(0,max(y/2),max(h0)),fts,y=y^0.25,h1=h0,cv1=diag(n1),lower=cbind(0,0,0))
+		opt<-optim(par = c(0,max(y/2),max(h0)), ftsOpt,
+			lower=cbind(0,0,0), method = "L-BFGS-B",
+			y=y^0.25, h1=h0, cv1=diag(n1))
+		th1 <- opt$par
 	}
-print("Fertig")
-v<-list(pars=opt$parameters)
-v$cg<-corg
-v$res<-y^0.25-(2^0.25*gamma(0.75)/sqrt(pi))*gamsph(h0,v$pars)^0.25
-v$lof<-t(v$res)%*%solve(corg,v$res)
-v
+	else
+		th1<-th0
+	th1<-cbind(0,max(y/2),max(h0))
+	#th0<-th1_c(3.72635248595876, 15.5844183738953, 1.22109233789852)
+	#th1<-c(0.0000000,7.6516077,0.7808538)
+	for (i in 1:iter) {
+		if(trace>0) 
+			print(i)
+		gg<-sqrt(2*gamsph(h0,th1))
+		#Spalte 1, Spalte 2, ...
+		#gamma vektor wird als matrix dargestellt
+		tt<-matrix(gg[(t(i1)-2)*(t(i1)-1)/2+i1],n,n)
+		#symmetrisierung
+		tt1<-tt
+		tt1[row(tt1)>col(tt1)]<-t(tt)[row(tt1)>col(tt1)]
+		#diagonale löschen
+		tt1[row(tt1)==col(tt1)]<-0
+		#covgamma wird berechnet
+		cg<-matrix(tt1[(k4-1)*n+k1]+tt1[(k2-1)*n+k3]-tt1[(k3-1)*n+k1]-tt1[(k4-1)*n+k2],n1,n1)
+		cgcg<-outer(gg,gg,"*")
+		corg<-sqrt(cgcg)*ficorr((cg*lower.tri(cg))/cgcg)
+		corg<-sqrt(2)*(sqrt(pi)-gamma(0.75)^2)/pi*(corg+t(corg)+diag(gg))
+		infm<-solve(corg);
+		cv<-chol((infm+t(infm))/2);
+		#sc<-cbind(1/th1[2],1/th1[2],1/th1[3])
+		#EJP outcommented:
+		#opt<-nlregb(n*(n-1)/2,th1,fts,y=y^0.25,h1=h0,cv1=cv,lower=cbind(0,0,0))
+		opt <- optim(par = th1, ftsOpt,
+			lower=cbind(0,0,0), method = "L-BFGS-B",
+			y=y^0.25,h1=h0,cv1=cv)
+		if(trace>0) print(opt$par)
+		if(sum(abs((th1-opt$par)/(th1+0.00001)))<=tolerance)
+			break
+		th1<-opt$par
+	}
+	print("Fertig")
+	v<-list(pars=opt$par)
+	v$cg<-corg
+	v$res<-y^0.25-(2^0.25*gamma(0.75)/sqrt(pi))*gamsph(h0,v$pars)^0.25
+	v$lof<-t(v$res)%*%solve(corg,v$res)
+	v
 }
 
-varobj<-function(m,iter=50,tolerance=0.0002,trace=1,loo=F){
+varobj<-function(m,iter=50,tolerance=0.0002,trace=1,loo=FALSE){
 n<-dim(m)[1]
 
 #a1<-t(m[,3]-t(matrix(m[,3],n,n)))
@@ -116,7 +136,7 @@ cda<-matrix(0,n,1)
 v$h<-h0
 v$y<-y
 
-if(loo==T){
+if(loo==TRUE){
   for (i in 1:n){
 	print(i)
 	m1<-m[-i,]
@@ -147,7 +167,7 @@ class(v)<-"varobj"
 v
 }
 
-print.varobj<-function(x,...){print(v$pars); print(v$lof);invisible(x)}
+print.varobj<-function(x,...){print(x$pars); print(x$lof);invisible(x)}
 
 #r[row(r)<col(r)]<-v$res
 #r<-r+t(r)
@@ -398,7 +418,7 @@ if(g=="l"){
    par(mfg=c(2,1,2,2))
    par(p21)
    par(fig=c(0,0.5,0,0.5))
-   xyi<-identify(matrix(cbind(v$res,v$res),n*2,1),matrix(cbind(r1,r2),n*2,1),plot=F,n=1)
+   xyi<-identify(matrix(cbind(v$res,v$res),n*2,1),matrix(cbind(r1,r2),n*2,1),plot=FALSE,n=1)
    if(xyi>n) xyi<-xyi-n
 }
 
@@ -407,7 +427,7 @@ if(g=="m"){
    par(mfg=c(1,1,2,2))
    par(p11)
    par(fig=c(0,0.5,0.5,1))
-   ix0<-identify(xn[,2],xn[,1],plot=T,n=1)
+   ix0<-identify(xn[,2],xn[,1],plot=TRUE,n=1)
    points(xn[ix0,2],xn[ix0,1],pch=16,col=6)
 
       ind1<-ceiling(sqrt((2*(1:n)+0.25))-0.5)+1
@@ -427,7 +447,7 @@ if(g=="m"){
    par(mfg=c(1,1,2,2))
    par(p11)
    par(fig=c(0,0.5,0.5,1))
-   iy0<-identify(xn[,2],xn[,1],plot=F,n=1)
+   iy0<-identify(xn[,2],xn[,1],plot=FALSE,n=1)
    if(length(iy0)>0){
       ix<-max(ix0,iy0)
       iy<-min(ix0,iy0)
@@ -462,7 +482,7 @@ if(g=="s"){
    par(mfg=c(1,2,2,2))
    par(p12)
    par(fig=c(0.5,1,0.5,1))
-   xyi<-identify(v$h,gdd,plot=F,n=1)
+   xyi<-identify(v$h,gdd,plot=FALSE,n=1)
 }
 
 if(g=="t"){
@@ -541,7 +561,7 @@ if(g=="n"){
    nl<-length(v$h)
    ind1<-ceiling(sqrt((2*(1:nl)+0.25))-0.5)+1
    ind2<-(1:nl)-ceiling(sqrt((2*(1:nl)+0.25))-0.5)/2*(ceiling(sqrt((2*(1:nl)+0.25))-0.5)-1)
-   i00<-match(ind1,(1:n0)[i0],nomatch=F)&match(ind2,(1:n0)[i0],nomatch=F)
+   i00<-match(ind1,(1:n0)[i0],nomatch=FALSE)&match(ind2,(1:n0)[i0],nomatch=FALSE)
    dev.off()
    PlotDiag.varobj(v,region)
    par(mfg=c(1,2,2,2))

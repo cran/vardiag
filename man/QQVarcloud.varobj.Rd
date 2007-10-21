@@ -14,7 +14,7 @@ QQVarcloud.varobj(v)
 \details{
 A plot is created on the current graphics device with
 quantiles of the chi-square distribution on the horizontal axis
-and ordered values of $\frac{(Z(s)-Z(s'))^2}{\gamma(s-s')}$ on the
+and ordered values of \eqn{\frac{(Z(s)-Z(s'))^2}{\gamma(s-s')}} on the
 vertical axis.
 
 A straight red line marks the expected curve of this plot.

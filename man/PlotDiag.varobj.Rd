@@ -13,10 +13,10 @@
 plotted as third dimension (via circles with radius corresponding
 to the value) in the map view. The following values are possible:
 \describe{
-  \item[0] no third dimension,
-  \item[1] values of the original observations,
-  \item[2] Cook's distances,
-  \item[3] reduction in lack of fit.
+  \item{0}{no third dimension,}
+  \item{1}{values of the original observations,}
+  \item{2}{Cook's distances,}
+  \item{3}{reduction in lack of fit.}
 }
 }
 }

@@ -5,7 +5,7 @@
 This function fits a variogram model to spatial data and calculates some statistics.
 }
 \usage{
-varobj(m, iter = 50, tolerance = 2e-04, trace = 1, loo = F)
+varobj(m, iter = 50, tolerance = 2e-04, trace = 1, loo = FALSE)
 }
 \arguments{
   \item{m}{n by 3 matrix with spatial data}

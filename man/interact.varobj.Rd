@@ -14,20 +14,20 @@ interact.varobj(v, region = 0, g = "s", pchi = 0.05, zmv = 0)
     which represents the region of interest.}
   \item{g}{the type of interaction with the following options:
   \describe{
-  \item[l] selection of a point in the leave-one-out plot.
-  \item[m] selection of one or two points in the map view. After selection of one point the
-            selection process can be stopped by a right mouse click.
-  \item[n] selection of a polygon region in the map view. This can
+  \item{l}{selection of a point in the leave-one-out plot.}
+  \item{m}{selection of one or two points in the map view. After selection of one point the
+            selection process can be stopped by a right mouse click.}
+  \item{n}{selection of a polygon region in the map view. This can
             be done by left clicking on the vertices of the polygon and
-            stopping by a right mouse click.
-  \item[s] selection of a point in the studentized square root
-            cloud.
-  \item[t] selection of a polygon region in the studentized square root
+            stopping by a right mouse click.}
+  \item{s}{selection of a point in the studentized square root
+            cloud.}
+  \item{t}{selection of a polygon region in the studentized square root
             cloud. This can
             be done by left clicking on the vertices of the polygon and
-            stopping by a right mouse click.
-  \item[x] selection of all points in the studentized square root
-            cloud outside an approximate confidence bound with significance level given by \code{pchi}.
+            stopping by a right mouse click.}
+  \item{x}{selection of all points in the studentized square root
+            cloud outside an approximate confidence bound with significance level given by \code{pchi}.}
 }
 }
   \item{pchi}{the significance level of the confidence bounds, if option
@@ -36,10 +36,10 @@ interact.varobj(v, region = 0, g = "s", pchi = 0.05, zmv = 0)
 ploted as third dimension (via circles with radius corresponding
 to the value) in the map view. The following values are possible:
   \describe{
-  \item[0] no third dimension,
-  \item[1] values of the original observations,
-  \item[2] Cook's distances,
-  \item[3] reduction in lack of fit.
+  \item{0}{no third dimension,}
+  \item{1}{values of the original observations,}
+  \item{2}{Cook's distances,}
+  \item{3}{reduction in lack of fit.}
 }
 }
 }
