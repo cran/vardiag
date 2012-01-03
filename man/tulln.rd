@@ -22,10 +22,8 @@ The variogram model used is a spherical model.
  Glatzer, E and Mueller, W.G. (2002).
 }
 
-\references{
-  Glatzer, E and Mueller, W.G. (2002).
-}
-
+\references{ E. Glatzer, W.G. Mueller, 2004. Residual diagnostics for
+variogram fitting. Computers and Geosciences 30, pp 859-866. }
 
 \usage{
 data(tulln)

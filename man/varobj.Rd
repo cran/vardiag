@@ -26,6 +26,9 @@ varobj(m, iter = 50, tolerance = 2e-04, trace = 1, loo = FALSE)
 
 \seealso{\code{\link{PlotDiag.varobj}}}
 
+\references{ E. Glatzer, W.G. Mueller, 2004. Residual diagnostics for
+variogram fitting. Computers and Geosciences 30, pp 859-866. }
+
 \examples{
 data(tulln)
 }

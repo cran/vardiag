@@ -34,6 +34,9 @@ are given.
 
 \seealso{\code{\link{PlotDiag.varobj}}}
 
+\references{ E. Glatzer, W.G. Mueller, 2004. Residual diagnostics for
+variogram fitting. Computers and Geosciences 30, pp 859-866. }
+
 \examples{
 data(tulln)
 QQDecorr.varobj(vs50)

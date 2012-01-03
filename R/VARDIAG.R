@@ -1,3 +1,5 @@
+p11 <<- p22 <<- p12 <<- p21 <<- par()
+
 gamsph<-function(h,th=rbind(1,1,1)){(0<h)*(h<=th[3])*(th[1]+th[2]*(3/2*(h/th[3])-1/2*(h/th[3])^3))+(h>th[3])*(th[1]+th[2])}
 
 fth<-function(th,y,h1,w1=1){(y-gamsph(h1,th))/w1}

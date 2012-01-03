@@ -84,6 +84,9 @@ magenta lines.
 
 \seealso{\code{\link{PlotDiag.varobj}}}
 
+\references{ E. Glatzer, W.G. Mueller, 2004. Residual diagnostics for
+variogram fitting. Computers and Geosciences 30, pp 859-866. }
+
 \examples{
 data(tulln)
 PlotDiag.varobj(vs50,region=tu1)
