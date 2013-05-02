@@ -2,7 +2,7 @@
 \alias{PlotDiag.varobj}
 \title{Diagnostic Plots for Variograms}
 \description{ Produces diagnostic plots for a variogram object. }
-\usage{ PlotDiag.varobj(v, region = 0, xyi = 0, zmv = 0) }
+\usage{ PlotDiag.varobj(v, region = NULL, xyi = 0, zmv = 0) }
 \arguments{
   \item{v}{A variogram object}
   \item{region}{a n by 2 matrix of vertices of a polygon,

@@ -6,7 +6,7 @@ Plot}
 Initiates selection of points in a Variogram Diagnostics Plot.
 }
 \usage{
-interact.varobj(v, region = 0, g = "s", pchi = 0.05, zmv = 0)
+interact.varobj(v, region = NULL, g = "s", pchi = 0.05, zmv = 0)
 }
 \arguments{
   \item{v}{A variogram object}
