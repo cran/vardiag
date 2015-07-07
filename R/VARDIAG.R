@@ -59,7 +59,7 @@ estvar <- function(h0, y, iter=50, tolerance=0.0002, trace=1, th0=rbind(0,1,1))
 	
 	n<-ceiling(sqrt(2*length(h0)))
 	
-	#Vorbereitung für covgamma
+	#Vorbereitung fuer covgamma
 	n1<-n*(n-1)/2
 	#1. index der gamma[i,j] matrix
 	i1<-matrix(1:n,n,n)
@@ -95,7 +95,7 @@ estvar <- function(h0, y, iter=50, tolerance=0.0002, trace=1, th0=rbind(0,1,1))
 		#symmetrisierung
 		tt1<-tt
 		tt1[row(tt1)>col(tt1)]<-t(tt)[row(tt1)>col(tt1)]
-		#diagonale löschen
+		#diagonale loeschen
 		tt1[row(tt1)==col(tt1)]<-0
 		#covgamma wird berechnet
 		cg<-matrix(tt1[(k4-1)*n+k1]+tt1[(k2-1)*n+k3]-tt1[(k3-1)*n+k1]-tt1[(k4-1)*n+k2],n1,n1)

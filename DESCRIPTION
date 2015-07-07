@@ -1,14 +1,15 @@
 Package: vardiag
-Version: 0.2-0
-Date: 2013-05-02
-Title: A package for variogram diagnostics
+Version: 0.2-1
+Date: 2015-07-07
+Title: Variogram Diagnostics
 Author: Ernst Glatzer <ernst.glatzer@wu-wien.ac.at>
 Maintainer: Edzer Pebesma <edzer.pebesma@uni-muenster.de>
 Depends: R (>= 2.0)
-Description: This package allows interactive variogram diagnostics.
+Imports: graphics, grDevices, stats
+Description: Interactive variogram diagnostics.
 License: GPL (>= 2)
-URL: http://www.r-project.org
-Packaged: 2013-05-02 14:55:34 UTC; edzer
+URL: https://github.com/edzer/vardiag/
 NeedsCompilation: no
+Packaged: 2015-07-08 11:57:09 UTC; edzer
 Repository: CRAN
-Date/Publication: 2013-05-02 18:18:31
+Date/Publication: 2015-07-08 14:46:28
